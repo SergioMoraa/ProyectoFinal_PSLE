@@ -116,7 +116,3 @@ Para que el bloqueo funcione en tus dispositivos (PC, Móvil, Tablet), debes con
 ##  Contribución
 
 Las contribuciones son bienvenidas. Por favor, abre un issue primero para discutir qué te gustaría cambiar.
-
-##  Licencia
-
-Este proyecto está bajo la Licencia MIT - mira el archivo [LICENSE](LICENSE) para detalles.
