@@ -1,0 +1,105 @@
+<!-- Declaración del tipo de documento HTML5 -->
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Título de la página que aparece en la pestaña del navegador -->
+    <title>Adblock Pi Dashboard</title>
+    <style>
+        /* Estilos generales para el cuerpo de la página */
+        body { font-family: Arial; background: #f2f2f2; padding: 20px; }
+        /* Estilo para el encabezado principal */
+        h1 { color: #333; }
+        /* Estilos para la tabla de logs: ancho completo, bordes colapsados y fondo blanco */
+        table { width: 100%; border-collapse: collapse; background: white; }
+        /* Estilos para celdas de encabezado y datos: espaciado y borde inferior */
+        th, td { padding: 10px; border-bottom: 1px solid #ddd; text-align: left; }
+        /* Estilo específico para el encabezado de la tabla: fondo oscuro y texto blanco */
+        th { background: #333; color: white; }
+        /* Clase .card para crear contenedores con estilo de tarjeta (fondo blanco, sombra, bordes redondeados) */
+        .card {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Título principal visible en la página -->
+    <h1>Adblock-Pi Dashboard</h1>
+
+    <!-- Tarjeta de estadísticas generales -->
+    <div class="card">
+        <h2>Estadísticas</h2>
+        <!-- Span con id "blcount" donde se insertará el número de dominios en la lista negra -->
+        <p><b>Total de dominios bloqueados:</b> <span id="blcount">Cargando...</span></p>
+        <!-- Span con id "totalblocks" donde se insertará el contador total de eventos bloqueados -->
+        <p><b>Total de eventos registrados:</b> <span id="totalblocks">Cargando...</span></p>
+    </div>
+
+    <!-- Tarjeta para mostrar la tabla de los últimos bloqueos -->
+    <div class="card">
+        <h2>Últimos bloqueos</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Hora</th>
+                    <th>Cliente</th>
+                    <th>Dominio</th>
+                </tr>
+            </thead>
+            <!-- Cuerpo de la tabla vacío inicialmente, se llenará con JavaScript (id="logtable") -->
+            <tbody id="logtable">
+            </tbody>
+        </table>
+    </div>
+
+<script>
+// Función principal para cargar y actualizar las estadísticas desde el servidor
+function loadStats() {
+    // Hacemos una petición GET al endpoint /stats de nuestra API Flask
+    fetch("/stats")
+    .then(res => res.json()) // Convertimos la respuesta a JSON
+    .then(data => {
+        // Actualizamos el contador total de bloqueos en el DOM
+        document.getElementById("totalblocks").innerText = data.total_blocks;
+        
+        // Obtenemos la referencia a la tabla de logs
+        let table = document.getElementById("logtable");
+        // Limpiamos el contenido actual de la tabla
+        table.innerHTML = "";
+        
+        // Iteramos sobre los últimos eventos recibidos (data.last)
+        data.last.forEach(row => {
+            // Creamos una nueva fila (tr) para cada evento
+            let tr = document.createElement("tr");
+            // Convertimos el timestamp Unix a una fecha legible local
+            let ts = new Date(row.time * 1000).toLocaleString();
+            // Insertamos las celdas (td) con la fecha, IP del cliente y dominio
+            tr.innerHTML = `<td>${ts}</td><td>${row.client}</td><td>${row.domain}</td>`;
+            // Añadimos la fila a la tabla
+            table.appendChild(tr);
+        });
+    });
+
+    // Hacemos una petición GET al endpoint /blacklist para saber cuántos dominios hay bloqueados
+    fetch("/blacklist")
+    .then(res => res.json())
+    .then(data => {
+        // Actualizamos el contador de la lista negra en el DOM
+        document.getElementById("blcount").innerText = data.count;
+    });
+}
+
+// Configuramos un intervalo para ejecutar loadStats cada 2000 ms (2 segundos)
+// Esto mantiene la interfaz actualizada en "tiempo real"
+setInterval(loadStats, 2000);
+
+// Ejecutamos la función inmediatamente al cargar la página
+loadStats();
+</script>
+
+</body>
+</html>
