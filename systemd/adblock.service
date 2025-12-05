@@ -1,0 +1,15 @@
+[Unit]
+Description=Adblock DNS Service
+After=network.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/home/juan_holguin/adblock-pi
+Environment=PATH=/home/juan_holguin/adblock-pi/venv/bin
+ExecStart=/home/juan_holguin/adblock-pi/venv/bin/python /home/juan_holguin/adblock-pi/src/adblock_dns.py
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,4 @@
+dnslib
+Flask
+requests
+aiocache
