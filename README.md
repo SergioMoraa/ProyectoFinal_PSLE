@@ -8,6 +8,16 @@
 
 Este proyecto fue desarrollado como una solución educativa para entender el funcionamiento de los protocolos DNS, el manejo de sockets en Python y la integración de servicios web para monitoreo.
 
+## 📸 Funcionamiento
+
+A continuación se muestra el esquema de funcionamiento y la interfaz del sistema:
+
+![Esquema de Funcionamiento](assets/Imagen%201.jpeg)
+*Figura 1: Diagrama de flujo del servidor DNS*
+
+![Interfaz Web](assets/Imagen%202.jpeg)
+*Figura 2: Panel de control y estadísticas*
+
 ##  Características
 
 - **Servidor DNS Personalizado**: Implementado con `dnslib`, capaz de resolver peticiones y bloquear dominios en tiempo real.
