@@ -17,8 +17,8 @@ A continuación se muestra el esquema de funcionamiento y la interfaz del sistem
 ![Interfaz Web](assets/Imagen%202.jpeg)
 *Figura 2: Panel de control y estadísticas* - *Prueba realizada por los dos autores*
 
-![Matriz del plan de Verificación](assets/verificacion.jpeg)
-*Figura 3: Matriz del Plan de Verificación*
+![Matriz del plan de Verificación](assets/Verificacion.jpeg)
+*Figura 3: Matriz del Plan de Verificación* - *Prueba realizada por Juan Camilo Holguin*
 
 ### Detalle del Plan de Pruebas
 
@@ -26,13 +26,13 @@ A continuación se describen los casos de prueba ejecutados para validar el sist
 
 | ID | Componente | Descripción de la Prueba | Entrada (Input) | Resultado Esperado | Estado |
 |:--:|:----------:|--------------------------|-----------------|--------------------|:------:|
-| **CP-01** | `updater.py` | Descarga de listas de bloqueo | Ejecución del script de actualización | Archivos `.txt` creados en la carpeta `data/hosts/` | ✅ Pasa |
-| **CP-02** | `hosts_store.py` | Carga de base de datos en memoria | Inicio del servidor DNS | El sistema reporta X dominios cargados en consola | ✅ Pasa |
-| **CP-03** | `adblock_dns.py` | **Bloqueo de Publicidad** | `nslookup doubleclick.net <IP_Pi>` | Respuesta: `Address: 0.0.0.0` | ✅ Pasa |
-| **CP-04** | `adblock_dns.py` | **Resolución Normal** | `nslookup google.com <IP_Pi>` | Respuesta: IP real (ej. `142.250.x.x`) | ✅ Pasa |
-| **CP-05** | `adblock_dns.py` | Bloqueo de Subdominios | `nslookup ads.google.com <IP_Pi>` | Respuesta: `Address: 0.0.0.0` (por coincidencia parcial) | ✅ Pasa |
-| **CP-06** | `webui.py` | API de Estadísticas | GET `http://localhost:8080/stats` | JSON con contador `total_blocks` incrementado | ✅ Pasa |
-| **CP-07** | Base de Datos | Persistencia de Logs | Verificar archivo `logs.db` tras bloqueo | Nuevo registro insertado en tabla `blocked_events` | ✅ Pasa |
+| **CP-01** | `updater.py` | Descarga de listas de bloqueo | Ejecución del script de actualización | Archivos `.txt` creados en la carpeta `data/hosts/` |  Pasa |
+| **CP-02** | `hosts_store.py` | Carga de base de datos en memoria | Inicio del servidor DNS | El sistema reporta X dominios cargados en consola |  Pasa |
+| **CP-03** | `adblock_dns.py` | **Bloqueo de Publicidad** | `nslookup doubleclick.net <IP_Pi>` | Respuesta: `Address: 0.0.0.0` |  Pasa |
+| **CP-04** | `adblock_dns.py` | **Resolución Normal** | `nslookup google.com <IP_Pi>` | Respuesta: IP real (ej. `142.250.x.x`) |  Pasa |
+| **CP-05** | `adblock_dns.py` | Bloqueo de Subdominios | `nslookup ads.google.com <IP_Pi>` | Respuesta: `Address: 0.0.0.0` (por coincidencia parcial) |  Pasa |
+| **CP-06** | `webui.py` | API de Estadísticas | GET `http://localhost:8080/stats` | JSON con contador `total_blocks` incrementado |  Pasa |
+| **CP-07** | Base de Datos | Persistencia de Logs | Verificar archivo `logs.db` tras bloqueo | Nuevo registro insertado en tabla `blocked_events` |  Pasa |
 
 ##  Características
 
@@ -57,7 +57,7 @@ Las dependencias de Python se encuentran en `requirements.txt`:
 
 1. **Clonar el repositorio:**
    ```bash
-   git clone https://github.com/SergioMoraa/adblock-pi.git
+   git clone https://github.com/tu-usuario/adblock-pi.git
    cd adblock-pi
    ```
 
