@@ -29,8 +29,8 @@ A continuación se describen los casos de prueba ejecutados para validar el sist
 | **CP-01** | `updater.py` | Descarga de listas de bloqueo | Ejecución del script de actualización | Archivos `.txt` creados en la carpeta `data/hosts/` |  Pasa |
 | **CP-02** | `hosts_store.py` | Carga de base de datos en memoria | Inicio del servidor DNS | El sistema reporta X dominios cargados en consola |  Pasa |
 | **CP-03** | `adblock_dns.py` | **Bloqueo de Publicidad** | `nslookup doubleclick.net <IP_Pi>` | Respuesta: `Address: 0.0.0.0` |  Pasa |
-| **CP-04** | `adblock_dns.py` | **Resolución Normal** | `nslookup google.com <IP_Pi>` | Respuesta: IP real (ej. `142.250.x.x`) |  Pasa |
-| **CP-05** | `adblock_dns.py` | Bloqueo de Subdominios | `nslookup ads.google.com <IP_Pi>` | Respuesta: `Address: 0.0.0.0` (por coincidencia parcial) |  Pasa |
+| **CP-04** | `adblock_dns.py` | **Resolución Normal** | `beacons4.gvt2.com <IP_Pi>` | Respuesta: IP real (`192.168.1.35`) |  Pasa |
+| **CP-05** | `adblock_dns.py` | Bloqueo de Subdominios | `beacons4.gvt2.com <IP_Pi>` | Respuesta: `Address: 0.0.0.0` (por coincidencia parcial) |  Pasa |
 | **CP-06** | `webui.py` | API de Estadísticas | GET `http://localhost:8080/stats` | JSON con contador `total_blocks` incrementado |  Pasa |
 | **CP-07** | Base de Datos | Persistencia de Logs | Verificar archivo `logs.db` tras bloqueo | Nuevo registro insertado en tabla `blocked_events` |  Pasa |
 
