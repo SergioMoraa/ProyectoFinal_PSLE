@@ -57,7 +57,7 @@ Las dependencias de Python se encuentran en `requirements.txt`:
 
 1. **Clonar el repositorio:**
    ```bash
-   git clone https://github.com/tu-usuario/adblock-pi.git
+   git clone https://github.com/SergioMoraa/adblock-pi.git
    cd adblock-pi
    ```
 
