@@ -1,22 +1,38 @@
-# AdBlock Pi - DNS Sinkhole en Python
+**Autores:** Sergio Andrés Mora Orrego - Juan Camilo Holguin
+**Curso:** Programación de Sistemas Embebidos
 
-![Python](https://img.shields.io/badge/Python-3.8%2B-blue)
-![License](https://img.shields.io/badge/License-MIT-green)
-![Status](https://img.shields.io/badge/Status-Active-success)
+# AdBlock Pi - DNS Sinkhole en Python
 
 **AdBlock Pi** es un servidor DNS ligero y personalizado diseñado para bloquear publicidad, rastreadores y sitios maliciosos a nivel de red. Funciona interceptando las peticiones DNS de los dispositivos conectados y filtrando aquellas que coinciden con listas negras conocidas, devolviendo una dirección nula (`0.0.0.0`) para los dominios bloqueados.
 
 Este proyecto fue desarrollado como una solución educativa para entender el funcionamiento de los protocolos DNS, el manejo de sockets en Python y la integración de servicios web para monitoreo.
 
-## 📸 Funcionamiento
+##  Funcionamiento
 
 A continuación se muestra el esquema de funcionamiento y la interfaz del sistema:
 
 ![Esquema de Funcionamiento](assets/Imagen%201.jpeg)
-*Figura 1: Diagrama de flujo del servidor DNS*
+*Figura 1: Diagrama de flujo del servidor DNS* - *Prueba realizada por Sergio Andres Mora Orrego*
 
 ![Interfaz Web](assets/Imagen%202.jpeg)
-*Figura 2: Panel de control y estadísticas*
+*Figura 2: Panel de control y estadísticas* - *Prueba realizada por los dos autores*
+
+![Matriz del plan de Verificación](assets/verificacion.jpeg)
+*Figura 3: Matriz del Plan de Verificación*
+
+### Detalle del Plan de Pruebas
+
+A continuación se describen los casos de prueba ejecutados para validar el sistema:
+
+| ID | Componente | Descripción de la Prueba | Entrada (Input) | Resultado Esperado | Estado |
+|:--:|:----------:|--------------------------|-----------------|--------------------|:------:|
+| **CP-01** | `updater.py` | Descarga de listas de bloqueo | Ejecución del script de actualización | Archivos `.txt` creados en la carpeta `data/hosts/` | ✅ Pasa |
+| **CP-02** | `hosts_store.py` | Carga de base de datos en memoria | Inicio del servidor DNS | El sistema reporta X dominios cargados en consola | ✅ Pasa |
+| **CP-03** | `adblock_dns.py` | **Bloqueo de Publicidad** | `nslookup doubleclick.net <IP_Pi>` | Respuesta: `Address: 0.0.0.0` | ✅ Pasa |
+| **CP-04** | `adblock_dns.py` | **Resolución Normal** | `nslookup google.com <IP_Pi>` | Respuesta: IP real (ej. `142.250.x.x`) | ✅ Pasa |
+| **CP-05** | `adblock_dns.py` | Bloqueo de Subdominios | `nslookup ads.google.com <IP_Pi>` | Respuesta: `Address: 0.0.0.0` (por coincidencia parcial) | ✅ Pasa |
+| **CP-06** | `webui.py` | API de Estadísticas | GET `http://localhost:8080/stats` | JSON con contador `total_blocks` incrementado | ✅ Pasa |
+| **CP-07** | Base de Datos | Persistencia de Logs | Verificar archivo `logs.db` tras bloqueo | Nuevo registro insertado en tabla `blocked_events` | ✅ Pasa |
 
 ##  Características
 
@@ -92,6 +108,7 @@ python src/updater.py
 
 ```
 adblock-pi/
+├── assets
 ├── data/                   # Almacenamiento de datos
 │   ├── hosts/              # Archivos de texto con dominios a bloquear
 │   └── logs.db             # Base de datos SQLite con historial de bloqueos
@@ -101,6 +118,10 @@ adblock-pi/
 │   ├── updater.py          # Gestor de descargas de listas externas
 │   └── webui.py            # API/Webserver Flask para monitoreo
 ├── systemd/                # Archivos de configuración para servicio (Linux)
+│   └──adblock.service
+├── templates
+│   └── index.html
+├── venv  
 ├── requirements.txt        # Dependencias del proyecto
 └── README.md               # Documentación
 ```
@@ -116,7 +137,3 @@ Para que el bloqueo funcione en tus dispositivos (PC, Móvil, Tablet), debes con
 ##  Contribución
 
 Las contribuciones son bienvenidas. Por favor, abre un issue primero para discutir qué te gustaría cambiar.
-
-##  Licencia
-
-Este proyecto está bajo la Licencia MIT - mira el archivo [LICENSE](LICENSE) para detalles.
